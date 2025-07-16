@@ -4,6 +4,9 @@ FROM php:8.2.1-apache-buster
 # https://github.com/moby/moby/issues/4032#issuecomment-192327844
 ARG DEBIAN_FRONTEND=noninteractive
 
+# Fix sources.list to look in 'archive.debian.org' (removed from deb.debian around July 10th, 2025)
+RUN sed -i 's/deb.debian/archive.debian/g' /etc/apt/sources.list
+
 # Update
 RUN apt-get -y update --fix-missing && \
     apt-get upgrade -y && \

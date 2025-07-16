@@ -1,37 +1,23 @@
-/* Place any manually written CSS here */
-.subtitle {
-  color: #a8a8a8;
-  font-size: 1.5rem;
+/* Full table width */
+table { width: 600px; }
+
+/* Column Widths */
+th { width: 22%; }
+th:nth-child(1) { width: 12%; }
+
+/* Borders and padding */
+table, td, th {
+    border: 2px solid #aaaabb;
+    border-collapse: collapse;
+    padding: 3px;
 }
 
-.boyColor {
-  background-color: rgb(153, 204, 255);
-}
+/* Header colors */
+th { background-color: #eeeeee; }
+th.boyColor { background-color: #99ccff; }
+th.girlColor { background-color: pink; }
 
-.girlColor {
-  background-color: pink;
-}
-
-th {
-  border: 2px solid gray;
-  text-align: center;
-  vertical-align: bottom;
-  background-color: lightgray;
-  padding: 5px;
-}
-
-td {
-  border: 2px solid gray;
-  text-align: right;
-  vertical-align: bottom;
-  padding: 5px;
-}
-
-tfoot td {
-  text-align: left;
-}
-
-table {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
+/* Cell text alignment */
+th { text-align: center; }
+thead tr { vertical-align: bottom; }
+tbody tr { text-align: right; }
