@@ -1,11 +1,8 @@
-FROM php:8.2.1-apache-buster
+FROM php:8.4-rc-apache-trixie
 
 # Suppresses debconf complaints of trying to install apt packages interactively
 # https://github.com/moby/moby/issues/4032#issuecomment-192327844
 ARG DEBIAN_FRONTEND=noninteractive
-
-# Fix sources.list to look in 'archive.debian.org' (removed from deb.debian around July 10th, 2025)
-RUN sed -i 's/deb.debian/archive.debian/g' /etc/apt/sources.list
 
 # Update
 RUN apt-get -y update --fix-missing && \
@@ -13,24 +10,28 @@ RUN apt-get -y update --fix-missing && \
     apt-get --no-install-recommends install -y apt-utils && \
     rm -rf /var/lib/apt/lists/*
 
-# Install useful tools and install important libaries
+# Install basic dev tools and libraries
 RUN apt-get -y update && \
-    apt-get -y --no-install-recommends install nano wget curl dialog && \
-    apt-get -y --no-install-recommends install default-mysql-client && \
-    apt-get -y --no-install-recommends install zlib1g-dev libzip-dev libicu-dev libcurl4 libcurl4-openssl-dev libonig-dev && \
-    apt-get -y --no-install-recommends install --fix-missing zip openssl && \
+    apt-get -y --no-install-recommends install nano wget dialog libsqlite3-dev libsqlite3-0 && \
+    apt-get -y --no-install-recommends install default-mysql-client zlib1g-dev libzip-dev libicu-dev && \
+    apt-get -y --no-install-recommends install --fix-missing apt-utils build-essential git curl libonig-dev && \ 
+    apt-get install -y iputils-ping && \
+    apt-get -y --no-install-recommends install --fix-missing libcurl4 libcurl4-openssl-dev zip openssl && \
     rm -rf /var/lib/apt/lists/* && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Install xdebug
-RUN pecl install xdebug-3.2.1 && \
+RUN pecl install xdebug-3.5.0 && \
     docker-php-ext-enable xdebug && \
     mkdir /var/log/xdebug
 
 # Other PHP8 Extensions
 RUN docker-php-ext-install pdo_mysql && \
+    docker-php-ext-install pdo_sqlite && \
     docker-php-ext-install bcmath && \
     docker-php-ext-install mysqli && \
+    docker-php-ext-install curl && \
+    docker-php-ext-install zip && \
     docker-php-ext-install -j$(nproc) intl && \
     docker-php-ext-install mbstring && \
     docker-php-ext-install gettext && \
@@ -46,5 +47,9 @@ RUN a2enmod ssl && a2enmod rewrite
 # Enable apache modules
 RUN a2enmod rewrite headers
 
+# Install PHP Code Sniffer
+RUN composer global require "squizlabs/php_codesniffer=*" && \
+    ln -s ~/.composer/vendor/bin/phpcs /usr/local/bin/phpcs
+    
 # Cleanup
 RUN rm -rf /usr/src/*
