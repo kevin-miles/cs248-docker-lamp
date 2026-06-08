@@ -2,10 +2,10 @@
 
 This repository provides a basic LAMP stack environment built using Docker Compose. It consists of the following:
 
-- Linux Base (Debian Buster)
+- Linux Base (Debian Trixie)
 - Apache (v2.4)
-- PHP (v8.2)
-- MySQL (via MariaDB v10.6)
+- PHP (v8.4)
+- MySQL (via MariaDB v12.1)
 
 It also comes with phpMyAdmin preinstalled to help you manage your databases.
 
@@ -14,7 +14,6 @@ If you are on Windows, it is recommended to install Windows Subsystem for Linux 
 - Type `Powershell` in the Windows search bar then right-click and select `Run as administrator`
 - In the Powershell window, run these commands:
   - `wsl --install`
-  - `wsl --set-default-version 2`
 
 This will install and configure WSL2 and a basic Ubuntu image.
 
@@ -29,15 +28,20 @@ To use this LAMP container, follow these steps:
 - Run `docker-compose up -d` from the root of the project
 - Visit `http://localhost:3000` in your browser
 
-You can edit the files in `www` to see changes reflected in the browser. PHP 8.2 is supported.
+You can edit the files in `www` to see changes reflected in the browser (remember to refresh the page after editing the file).
+To see changes immediately, you need to turn off your browser cache (open the developer tools, switch to the network tab, and check the 'disable cache' box).
+Note that this only disables the cache while the developer tools are open. PHP is supported.
 
 ## Setup Docker to use WSL (Windows only)
+NOTE: This may no longer be necessary for the latest version of Docker (it defaults to using the WSL 2 engine).
+
 You must tell docker to use WSL in its settings:
 - Start Docker Desktop and Navigate to Settings
 - From the General tab, check the box next to `Use WSL 2 based engine` (if it is not already checked)
 - Select `Apply & Restart`
 
 ## Credit
-This is a copy of the sprintcube docker-compose-lamp repo, with some modifications to suit the needs of our class. Extra PHP and MySQL versions have been removed along with redis, and the project structure has been simplified.
+This is a copy of the sprintcube docker-compose-lamp repo, with some modifications to suit the needs of our class.
+Extra PHP and MySQL versions have been removed along with redis, and the project structure has been simplified.
 
 For more information, visit the original repo: https://github.com/sprintcube/docker-compose-lamp
