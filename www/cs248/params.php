@@ -5,7 +5,7 @@
     <title>PHP Parameter Viewer</title>
 
     <!-- Bootstrap CSS -->
-    <link href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="index.css" rel="stylesheet">
 
     <?php
@@ -104,11 +104,11 @@
 
       <hr>
       <footer>
-        <p>For CS 248 at UW Stout | &copy; 2025 Seth Berrier</p>
+        <p>For CS 248 at UW Stout | &copy; 2026 Seth Berrier</p>
       </footer>
     </div>  <!-- /container -->
 
     <!-- Bootstrap JS -->
-    <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
