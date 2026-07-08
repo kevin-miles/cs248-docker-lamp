@@ -32,12 +32,14 @@
                                 <li>PHP <?= phpversion(); ?></li>
                                 <li>
                                     <?php
+                                    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
                                     try {
                                         $link = mysqli_connect("database", "root", $_ENV['MYSQL_ROOT_PASSWORD'], null);
                                         printf("MySQL Server %s", mysqli_get_server_info($link));
                                         mysqli_close($link);
-                                    } catch (e) {
-                                        printf("MySQL connection failed: %s", e.getMessage());
+                                    } catch (\Throwable $e) {
+                                        printf("<p><b>MySQL connection failed:</b> %s</p>\n", $e->getMessage());
+                                        printf("<p><b>NOTE:</b> The database server may still be starting/initializing. Wait a moment and try refreshing.</p>\n");
                                     }
                                     ?>
                                 </li>

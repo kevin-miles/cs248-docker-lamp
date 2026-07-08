@@ -1,4 +1,4 @@
-FROM php:8.4-rc-apache-trixie
+FROM php:8.4-apache-trixie
 
 # Suppresses debconf complaints of trying to install apt packages interactively
 # https://github.com/moby/moby/issues/4032#issuecomment-192327844
@@ -15,12 +15,14 @@ RUN apt-get -y update && \
     apt-get -y --no-install-recommends install nano wget dialog libsqlite3-dev libsqlite3-0 && \
     apt-get -y --no-install-recommends install default-mysql-client zlib1g-dev libzip-dev libicu-dev && \
     apt-get -y --no-install-recommends install --fix-missing apt-utils build-essential git curl libonig-dev && \ 
-    apt-get install -y iputils-ping && \
-    apt-get -y --no-install-recommends install --fix-missing libcurl4 libcurl4-openssl-dev zip openssl && \
-    rm -rf /var/lib/apt/lists/* && \
-    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+    apt-get -y --no-install-recommends install --fix-missing iputils-ping zip unzip 7zip && \
+    apt-get -y --no-install-recommends install --fix-missing libcurl4 libcurl4-openssl-dev openssl && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install xdebug
+# Install composer for PHP
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install xdebug for PHP
 RUN pecl install xdebug-3.5.0 && \
     docker-php-ext-enable xdebug && \
     mkdir /var/log/xdebug
