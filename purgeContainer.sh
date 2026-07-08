@@ -8,8 +8,8 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     # Kill and remove the container
-    docker kill cs248lamp-php82 cs248lamp-phpmyadmin cs248lamp-mariadb106
-    docker rm cs248lamp-php82 cs248lamp-phpmyadmin cs248lamp-mariadb106
+    docker kill cs248lamp-php84 cs248lamp-phpmyadmin cs248lamp-mariadb121
+    docker rm cs248lamp-php84 cs248lamp-phpmyadmin cs248lamp-mariadb121
 
     # Remove the images
     docker image rm cs248lamp-webserver phpmyadmin cs248lamp-database
