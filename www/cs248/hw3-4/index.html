@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Module 3.4 Homework - Movie Browser</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+
+  </head>
+  <body>
+
+    <!-- NOTE: This file is mostly complete! I want you to focus on the JavaScript and PHP
+          however, you may need to examine it carefully for element IDs and other bits
+          in order to make sure you use it right from your JavaScript -->
+    <div class="container">
+      <!-- This duplicates the page-header from Bootstrap 3 (but in bootstrap 4/5) -->
+      <header class="pb-2 mt-4 mb-2 border-bottom">
+        <h1 class="display-2">Best Picture Oscar Nominees</h1>
+      </header>
+
+      <section>
+        <h2 class="display-6">Click on a movie below to see more details</h2>
+
+        <!-- These are your sorting and per-page form options -->
+        <div class="row">
+          <!-- Sort-by select -->
+          <div class="col">
+            <label for="orderBy" id="orderByLabel">Sort movies By:</label>
+            <select class="form-select" id="orderBy" aria-labelledby="orderByLabel">
+              <option selected value="0">None</option>
+              <option value="1">id</option>
+              <option value="2">title</option>
+              <option value="3">year</option>
+              <option value="4">rated</option>
+              <option value="5">imdb rating</option>
+              <option value="6">description</option>
+              <option value="7">image</option>
+              <option value="8">genres</option>
+              <option value="9">directors</option>
+              <option value="10">writers</option>
+              <option value="11">actors</option>
+            </select>
+          </div>
+
+          <!-- Per-page select -->
+          <div class="col">
+            <label for="perPage" id="perPageLabel">Movies per page:</label>
+            <select class="form-select" id="perPage" aria-labelledby="perPageLabel">
+              <option value="25">25</option>
+              <option value="50">50</option>
+              <option value="100" selected>100</option>
+              <option value="200">200</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- This is your paginator (will be adjusted via JS) -->
+        <nav class="mt-4" aria-label="Movie Page Selector">
+          <ul id="paginator" class="pagination">
+            <!-- Previous page button -->
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+
+            <!-- Page numbers (just examples, overwrite from JS) -->
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+            <!-- Next page button -->
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- This is the grid of movies (filled via JS) -->
+        <div id="movieGrid" class="row"></div>
+
+        <!-- This is the modal dialog that holds the movie details (filled and triggered via JS) -->
+        <div class="modal  modal-lg fade" id="movieModal" tabindex="-1" role="dialog" aria-labelledby="movieTitle" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <!-- Modal header with title and close button -->
+              <div class="modal-header">
+                <!-- TODO: Fill in the movie title and year from JavaScript, Example: Titanic (1997) -->
+                <h5 class="modal-title" id="movieTitle">Movie title (year)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <!-- Modal main content -->
+              <div class="modal-body">
+                <div class="container">
+                  <div class="row mb-4">
+                    <div class="col-12 col-lg-5">
+                      <!-- Swap img src and alt attributes from JS -->
+                      <img id="moviePoster" src="../dbExamples/images/myflix/posters/7thheaven.jpg" alt="Poster for the movie" style="width: 100%;">
+                    </div>
+                    <div class="col-12 col-lg-7">
+                      <ul class="list-group mt-4">
+                        <!-- TODO: Fill in each part of the info using the IDs below (from javascript)-->
+                        <li class="list-group-item">
+                          <div class="row">
+                            <h5 class="mb-1 col-8">Rated:&nbsp;
+                              <span id="movieRated" class="badge text-bg-secondary">(rated)</span>
+                            </h5>
+                            <h5 class="mb-1 col-4" style="text-align: right;">
+                              <span id="movieIMDB" class="badge text-bg-light">(rating)</span>
+                            </h5>
+                          </div>
+                        </li>
+                        <li class="list-group-item">
+                          <h5 class="mb-1">Directed By</h5>
+                          <p class="mb-1" id="movieDirectors"></p>
+                        </li>
+                        <li class="list-group-item">
+                          <h5 class="mb-1">Written By</h5>
+                          <p class="mb-1" id="movieWriters"></p>
+                        </li>
+                        <li class="list-group-item">
+                          <h5 class="mb-1">Staring</h5>
+                          <p class="mb-1" id="movieActors"></p>
+                        </li>
+                        <li class="list-group-item">
+                          <h5 class="mb-1">Genres</h5>
+                          <p class="mb-1" id="movieGenres"></p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <!-- TODO: Fill in the plot (movie.details) from JavaScript -->
+                      <p id="moviePlot">Plot goes here</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Modal footer with close button -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="border-top mt-4 pt-2">
+        <p>For CS 248 at UW Stout | &copy; 2026 Kevin Miles</p>
+      </footer>
+    </div>
+
+    <!-- Bootstrap JS, with dependencies Popper.js and jQuery -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    <!-- Page specific JavaScript -->
+    <script src="index.js"></script>
+  </body>
+</html>

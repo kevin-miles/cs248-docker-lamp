@@ -1,0 +1,17 @@
+.movieSummary {
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+  vertical-align: bottom;
+}
+
+.doubleHeight {
+  display: block;
+  height: 40px;
+}
+
+.centered {
+  margin: auto;
+  max-width: 500px;
+}
